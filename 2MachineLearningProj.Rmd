@@ -7,7 +7,7 @@ output: html_document
 Document is produced under R version 3.2.0 & Windows 7
 Document purpose is to solve Coursera Machine learning Project Assignment
 
-###1. we need to prepare load our data libraries
+###1. we need to load desired  libraries
 ```{r datalib}
 
 library (caret)
@@ -33,6 +33,7 @@ testing<-read.csv("pml-testing.csv",na.strings=c("NA","#DIV/0!", ""))
 ctraining<-training[,colSums(is.na(training)) == 0]
 ctesting<-testing[,colSums(is.na(testing)) == 0]
 # Exploring the dataset
+colnames(ctraining)
 dim(ctraining)
 
 # Removing the first 7 coulmns as they are not relevant with our work
@@ -42,15 +43,15 @@ ctesting <-ctesting[,-c(1:7)]
 ```
 The final training set contains 53 Variables with 19622 objects
 
-###3. Split the Training data set into a training and crossvalidation dat set
+###3. Split the Training data set into a training and crossvalidation data set
 We are going to split the data between training & cross validation in the ratio of 70 to 30
 ```{r datasplit}
 intrain <- createDataPartition(y=ctraining$classe,p=0.7,list=FALSE)
 trainpart <- ctraining[intrain,]
 crosspart <- ctraining [-intrain,]
 ```
-###4. Testing different prediction model
-Hence the required prediction is certain values I have decided to test the Random forest model
+###4. Testing Random forest prediction model
+Hence the required  is to predict descreet values I have decided to test the Random forest model first
 
 
 ``` {r decisoinTree,cache=TRUE}

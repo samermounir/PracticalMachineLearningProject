@@ -69,8 +69,8 @@ img {
 
 
 <p>Document is produced under R version 3.2.0 &amp; Windows 7 Document purpose is to solve Coursera Machine learning Project Assignment</p>
-<div id="we-need-to-prepare-load-our-data-libraries" class="section level3">
-<h3>1. we need to prepare load our data libraries</h3>
+<div id="we-need-to-load-desired-libraries" class="section level3">
+<h3>1. we need to load desired libraries</h3>
 <pre class="r"><code>library (caret)</code></pre>
 <pre><code>## Loading required package: lattice
 ## Loading required package: ggplot2</code></pre>
@@ -103,23 +103,44 @@ testing&lt;-read.csv(&quot;pml-testing.csv&quot;,na.strings=c(&quot;NA&quot;,&qu
 ctraining&lt;-training[,colSums(is.na(training)) == 0]
 ctesting&lt;-testing[,colSums(is.na(testing)) == 0]
 # Exploring the dataset
-dim(ctraining)</code></pre>
+colnames(ctraining)</code></pre>
+<pre><code>##  [1] &quot;X&quot;                    &quot;user_name&quot;            &quot;raw_timestamp_part_1&quot;
+##  [4] &quot;raw_timestamp_part_2&quot; &quot;cvtd_timestamp&quot;       &quot;new_window&quot;          
+##  [7] &quot;num_window&quot;           &quot;roll_belt&quot;            &quot;pitch_belt&quot;          
+## [10] &quot;yaw_belt&quot;             &quot;total_accel_belt&quot;     &quot;gyros_belt_x&quot;        
+## [13] &quot;gyros_belt_y&quot;         &quot;gyros_belt_z&quot;         &quot;accel_belt_x&quot;        
+## [16] &quot;accel_belt_y&quot;         &quot;accel_belt_z&quot;         &quot;magnet_belt_x&quot;       
+## [19] &quot;magnet_belt_y&quot;        &quot;magnet_belt_z&quot;        &quot;roll_arm&quot;            
+## [22] &quot;pitch_arm&quot;            &quot;yaw_arm&quot;              &quot;total_accel_arm&quot;     
+## [25] &quot;gyros_arm_x&quot;          &quot;gyros_arm_y&quot;          &quot;gyros_arm_z&quot;         
+## [28] &quot;accel_arm_x&quot;          &quot;accel_arm_y&quot;          &quot;accel_arm_z&quot;         
+## [31] &quot;magnet_arm_x&quot;         &quot;magnet_arm_y&quot;         &quot;magnet_arm_z&quot;        
+## [34] &quot;roll_dumbbell&quot;        &quot;pitch_dumbbell&quot;       &quot;yaw_dumbbell&quot;        
+## [37] &quot;total_accel_dumbbell&quot; &quot;gyros_dumbbell_x&quot;     &quot;gyros_dumbbell_y&quot;    
+## [40] &quot;gyros_dumbbell_z&quot;     &quot;accel_dumbbell_x&quot;     &quot;accel_dumbbell_y&quot;    
+## [43] &quot;accel_dumbbell_z&quot;     &quot;magnet_dumbbell_x&quot;    &quot;magnet_dumbbell_y&quot;   
+## [46] &quot;magnet_dumbbell_z&quot;    &quot;roll_forearm&quot;         &quot;pitch_forearm&quot;       
+## [49] &quot;yaw_forearm&quot;          &quot;total_accel_forearm&quot;  &quot;gyros_forearm_x&quot;     
+## [52] &quot;gyros_forearm_y&quot;      &quot;gyros_forearm_z&quot;      &quot;accel_forearm_x&quot;     
+## [55] &quot;accel_forearm_y&quot;      &quot;accel_forearm_z&quot;      &quot;magnet_forearm_x&quot;    
+## [58] &quot;magnet_forearm_y&quot;     &quot;magnet_forearm_z&quot;     &quot;classe&quot;</code></pre>
+<pre class="r"><code>dim(ctraining)</code></pre>
 <pre><code>## [1] 19622    60</code></pre>
 <pre class="r"><code># Removing the first 7 coulmns as they are not relevant with our work
 ctraining   &lt;-ctraining[,-c(1:7)]
 ctesting &lt;-ctesting[,-c(1:7)]</code></pre>
 <p>The final training set contains 53 Variables with 19622 objects</p>
 </div>
-<div id="split-the-training-data-set-into-a-training-and-crossvalidation-dat-set" class="section level3">
-<h3>3. Split the Training data set into a training and crossvalidation dat set</h3>
+<div id="split-the-training-data-set-into-a-training-and-crossvalidation-data-set" class="section level3">
+<h3>3. Split the Training data set into a training and crossvalidation data set</h3>
 <p>We are going to split the data between training &amp; cross validation in the ratio of 70 to 30</p>
 <pre class="r"><code>intrain &lt;- createDataPartition(y=ctraining$classe,p=0.7,list=FALSE)
 trainpart &lt;- ctraining[intrain,]
 crosspart &lt;- ctraining [-intrain,]</code></pre>
 </div>
-<div id="testing-different-prediction-model" class="section level3">
-<h3>4. Testing different prediction model</h3>
-<p>Hence the required prediction is certain values I have decided to test the Random forest model</p>
+<div id="testing-random-forest-prediction-model" class="section level3">
+<h3>4. Testing Random forest prediction model</h3>
+<p>Hence the required is to predict descreet values I have decided to test the Random forest model first</p>
 <pre class="r"><code># Train  the model
 modelfit &lt;- randomForest(classe ~. , data=trainpart, method=&quot;class&quot;)
 # Cross Check the model
