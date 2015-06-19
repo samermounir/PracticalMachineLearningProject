@@ -60,7 +60,7 @@ modelfit <- randomForest(classe ~. , data=trainpart, method="class")
 prediction <- predict(modelfit, crosspart, type = "class")
 # Testing the model on the crosspart
 
-confusionMatrix(prediction, crosspart$classe)
+print (confusionMatrix(prediction, crosspart$classe))
 ```
 The results of the random forest model is pretty high
 Accuracy : 0.9966  95% CI : (0.9948, 0.9979) 
@@ -71,7 +71,7 @@ After this we need to apply the model on the 20 records of the test data and acq
 
 ```{r Predictingresults}
 predictfinal <- predict(modelfit, ctesting,type="class")
-predictfinal
+print (predictfinal)
 ```
 
 * The accuracy of the model is 0.996 or 99.6%

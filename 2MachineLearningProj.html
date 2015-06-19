@@ -126,7 +126,7 @@ modelfit &lt;- randomForest(classe ~. , data=trainpart, method=&quot;class&quot;
 prediction &lt;- predict(modelfit, crosspart, type = &quot;class&quot;)
 # Testing the model on the crosspart
 
-confusionMatrix(prediction, crosspart$classe)</code></pre>
+print (confusionMatrix(prediction, crosspart$classe))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
@@ -164,7 +164,7 @@ confusionMatrix(prediction, crosspart$classe)</code></pre>
 <h3>5 Acquiring the results for the testing data</h3>
 <p>After this we need to apply the model on the 20 records of the test data and acquire the results</p>
 <pre class="r"><code>predictfinal &lt;- predict(modelfit, ctesting,type=&quot;class&quot;)
-predictfinal</code></pre>
+print (predictfinal)</code></pre>
 <pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
 ##  B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B 
 ## Levels: A B C D E</code></pre>
